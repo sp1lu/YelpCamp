@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="row">
+        <h1 class="text-center">New campground</h1>
+
+        <div class="col-md-6 offset-md-3">
+
+            <form action="/campgrounds" method="POST" class="validated-form" novalidate enctype="multipart/form-data"> <!-- We need this enctype to upload images on server -->
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="title" name="campground[title]" placeholder="Title"
+                        required>
+                    <label class="form-label" for="title">Title</label>
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="location" name="campground[location]"
+                        placeholder="Location" required>
+                    <label class="form-label" for="location">Location</label>
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+
+                <!-- <div class="form-floating mb-3">
+                    <input class="form-control" type="text" id="image" name="campground[image]" placeholder="Image url"
+                        required>
+                    <label class="form-label" for="image">Image url</label>
+                    <div class="valid-feedback">Looks good!</div>
+                </div> -->
+                <!-- <div class="mb-3">
+                    <label for="image" class="form-label">Add images</label>
+                    <input type="file" name="image" id="image" multiple>
+                </div> -->
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add images</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        placeholder="Description" required></textarea>
+                    <label class="form-label" for="description">Description</label>
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="price-label">€</span>
+                    <div class="form-floating">
+                        <input type="number" class="form-control" placeholder="Price" aria-label="Price"
+                            aria-describedby="price-label" id="price" name="campground[price]" required>
+                        <label class="form-label" for="price">Price</label>
+                        <div class="valid-feedback">Looks good!</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-success">Add campground</button>
+            </form>
+
+            <a href="/campgrounds">Back to all campgrounds</a>
+
+        </div>
+
+    </div>
