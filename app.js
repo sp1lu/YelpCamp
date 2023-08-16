@@ -29,7 +29,7 @@ const helmet = require('helmet'); // Handle security issues
 const MongoStore = require('connect-mongo');
 
 // Connect Mongoose to MongoDB
-const dbUrl = 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp';
 mongoose.connect(dbUrl);
 /* mongoose.connect(dbUrl); */
 
@@ -61,11 +61,12 @@ app.use(mongoSanitize({ // Handle mongo injection
 }));
 
 // Session middleware
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
 const store = MongoStore.create({ // Store session in database instead that in memory
     mongoUrl: dbUrl,
     touchAfter: 24 * 3600, // Update user session only once in 24 hours if not necessary (in seconds not ms)
     crypto: {
-        secret: 'thisshouldbeabettersecret!',
+        secret: secret,
     }
 });
 
@@ -76,7 +77,7 @@ store.on('error', function(e) {
 const sessionConfig = { // Temporary sessions config for dev purpose
     store: store,
     name: 'session',
-    secret: 'thisshouldbeabettersecret!', // Validation key
+    secret: secret, // Validation key
     resave: false, // To avoid deprecated default value
     saveUninitialized: true, // To avoid deprecated default value
     cookie: { // Cookie settings
